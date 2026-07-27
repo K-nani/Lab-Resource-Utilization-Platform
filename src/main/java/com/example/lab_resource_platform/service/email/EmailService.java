@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +17,7 @@ public class EmailService {
     @Value("${app.email.from}")
     private String adminEmail;
 
+    @Async
     public void sendOtpEmail(String toEmail, String otp){
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(adminEmail);
@@ -29,6 +31,7 @@ public class EmailService {
 
     }
 
+    @Async
     public void sendResetOtpEmail(String toEmail, String otp){
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(adminEmail);
@@ -40,6 +43,7 @@ public class EmailService {
         mailSender.send(message);
     }
 
+    @Async
     public void sendBookingNotificationEmail(String managerEmail, String researcherName, String equipmentName, String startTime, String endTime) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(adminEmail);
@@ -57,6 +61,7 @@ public class EmailService {
         mailSender.send(message);
     }
 
+    @Async
     public void sendBookingAcceptedEmail(String toEmail, String researcherName, String equipmentName, String startTime, String endTime) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(adminEmail);
@@ -72,7 +77,8 @@ public class EmailService {
 
         mailSender.send(message);
     }
-    
+
+    @Async
     public void sendBookingRejectedEmail(String toEmail, String researcherName, String equipmentName, String startTime, String endTime) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(adminEmail);
@@ -88,7 +94,8 @@ public class EmailService {
 
         mailSender.send(message);
     }
-    
+
+    @Async
     public void sendBookingExpirationWarningEmail(String toEmail, String researcherName, String equipmentName, String endTime) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(adminEmail);
@@ -103,7 +110,8 @@ public class EmailService {
 
         mailSender.send(message);
     }
-    
+
+    @Async
     public void sendWaitlistPromotedEmail(String toEmail, String researcherName, String equipmentName, String startTime, String endTime) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(adminEmail);
@@ -120,7 +128,8 @@ public class EmailService {
 
         mailSender.send(message);
     }
-    
+
+    @Async
     public void sendMaintenanceCreatedEmail(String toEmail, String equipmentName, String priority, String description) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(adminEmail);
@@ -136,7 +145,8 @@ public class EmailService {
 
         mailSender.send(message);
     }
-    
+
+    @Async
     public void sendMaintenanceStartedEmail(String managerEmail, Long requestId, String equipmentName, String technicianName) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(adminEmail);
@@ -152,7 +162,8 @@ public class EmailService {
 
         mailSender.send(message);
     }
-    
+
+    @Async
     public void sendMaintenanceCompletedEmail(String managerEmail, Long requestId, String equipmentName, String technicianName, String result, String notes) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(adminEmail);
@@ -170,7 +181,8 @@ public class EmailService {
 
         mailSender.send(message);
     }
-    
+
+    @Async
     public void sendMaintenanceCancelledEmail(String technicianEmail, Long requestId, String equipmentName, String status) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(adminEmail);
