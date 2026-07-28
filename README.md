@@ -206,6 +206,12 @@ https://lab-resource-utilization-platform.onrender.com/
 
 ```
 
+## base url for vercel
+```
+https://lab-resource-utilization-platform.vercel.app/
+
+```
+
 # Authentication API
 
 ## User Roles
