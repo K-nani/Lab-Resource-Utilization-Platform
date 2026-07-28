@@ -10,13 +10,23 @@ A **Full-Stack Lab Resource Utilization Platform** built using **React.js**, **S
 
 Before running the project, ensure you have the following installed:
 
-- Java 21 (or the version required by the project)
+- Java 21 (or the version required by the project) / Java 17
 - Node.js & npm
 - PostgreSQL
 - Eclipse IDE (recommended for the backend)
 - Maven
-
+- Neon PostgreSQL database
+- Docker Desktop
+-   Maven 3.9+
+-   Git
 ---
+
+## Clone
+
+``` bash
+git clone https://github.com/shreya080527/Lab-Resource-Utilization-Platform
+cd Lab-Resource-Utilization-Platform
+```
 
 # Running the Frontend (React)
 
@@ -111,6 +121,90 @@ LabResourcePlatformApplication
 and click **Run**.
 
 ---
+
+## Environment Variables
+
+Create a `.env` file in the project root:
+
+``` properties
+
+  SPRING_DATASOURCE_URL=jdbc:postgresql://<neon-host>/neondb?sslmode=require
+  SPRING_DATASOURCE_USERNAME=neondb_owner
+  SPRING_DATASOURCE_PASSWORD=your_password
+
+  SPRING_MAIL_USERNAME=your_email@gmail.com
+  SPRING_MAIL_PASSWORD=your_gmail_app_password
+
+  JWT_SECRET=your_jwt_secret
+
+```
+
+## application.properties
+
+``` properties
+spring.datasource.url=${SPRING_DATASOURCE_URL}
+spring.datasource.username=${SPRING_DATASOURCE_USERNAME}
+spring.datasource.password=${SPRING_DATASOURCE_PASSWORD}
+
+spring.mail.username=${SPRING_MAIL_USERNAME}
+spring.mail.password=${SPRING_MAIL_PASSWORD}
+
+jwt.secret=${JWT_SECRET}
+
+server.port=${PORT:8080}
+
+........
+
+```
+
+## Build the Project
+
+``` bash
+mvn clean package -DskipTests
+```
+
+## Build Docker Image
+
+``` bash
+docker compose build
+```
+
+## Run Container
+
+``` bash
+docker compose up -d
+```
+
+## View Running Containers
+
+``` bash
+docker ps
+```
+
+## View Logs/ run project
+
+``` bash
+docker logs -f lab-platform
+```
+
+## Stop Container
+
+``` bash
+docker compose down
+```
+
+## Rebuild After Code Changes
+
+``` bash
+mvn clean package -DskipTests
+docker compose up --build -d
+```
+
+## base url for render
+```
+https://lab-resource-utilization-platform.onrender.com/
+
+```
 
 # Authentication API
 
@@ -984,12 +1078,6 @@ None
 | Update Booking Status  | Not Required            | Required             |
 
 ---
-
-# Base URL
-
-```
-http://localhost:8080
-```
 
 # Idle Equipment Report Logic
 
