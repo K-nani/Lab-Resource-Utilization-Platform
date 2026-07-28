@@ -1,0 +1,17 @@
+services:
+  lab-platform:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    image: lab-resource-utilization-platform:latest
+
+    container_name: lab-platform
+
+    ports:
+      - "8080:8080"
+
+    env_file:
+      - .env
+
+    restart: unless-stopped

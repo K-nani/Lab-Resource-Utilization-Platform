@@ -1,1 +1,15 @@
-/target/
+# Maven
+target/
+
+# IDE
+.idea/
+.vscode/
+
+# Environment variables
+.env
+
+# Git
+.git/
+
+# Logs
+*.log
