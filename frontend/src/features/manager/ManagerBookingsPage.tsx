@@ -755,7 +755,7 @@ export default function ManagerBookingsPage() {
             <>
               This will cancel the booking for{" "}
               <span className="font-semibold text-foreground">
-                {cancelTarget.equipment?.equipmentName || "this equipment"}
+                {cancelTarget.equipmentName || "this equipment"}
               </span>{" "}
               on{" "}
               <span className="font-semibold text-foreground">

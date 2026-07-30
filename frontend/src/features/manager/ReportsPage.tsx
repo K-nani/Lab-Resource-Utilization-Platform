@@ -118,8 +118,8 @@ export default function ReportsPage() {
             y = 20;
           }
           doc.text(String(b.id), 14, y);
-          doc.text((b.equipment?.equipmentName || "—").substring(0, 20), 30, y);
-          doc.text((b.user?.username || "—").substring(0, 15), 90, y);
+          doc.text((b.equipmentName || "—").substring(0, 20), 30, y);
+          doc.text((b.username || "—").substring(0, 15), 90, y);
           doc.text(format(parseISO(b.startTime), "MMM dd"), 140, y);
           doc.text(format(parseISO(b.endTime), "MMM dd"), 175, y);
           doc.text(b.status, 210, y);
@@ -175,8 +175,8 @@ export default function ReportsPage() {
       if (reportType === "bookings") {
         data = filteredBookings.map((b) => ({
           ID: b.id,
-          Equipment: b.equipment?.equipmentName || "—",
-          User: b.user?.username || "—",
+          Equipment: b.equipmentName || "—",
+          User: b.username || "—",
           "Start Date": format(parseISO(b.startTime), "PPP"),
           "Start Time": format(parseISO(b.startTime), "HH:mm"),
           "End Date": format(parseISO(b.endTime), "PPP"),
@@ -190,7 +190,7 @@ export default function ReportsPage() {
           Serial: e.serial,
           Category: e.category,
           Status: e.status,
-          "Added By": e.addedBy,
+          "Added By": e.addedByUsername ?? "—",
           "Acquisition Date": format(parseISO(e.acquisitionDate), "PPP"),
         }));
       }
@@ -324,8 +324,8 @@ export default function ReportsPage() {
                   {filteredBookings.map((b) => (
                     <TableRow key={b.id}>
                       <TableCell className="font-medium">{b.id}</TableCell>
-                      <TableCell>{b.equipment?.equipmentName || "—"}</TableCell>
-                      <TableCell>{b.user?.username || "—"}</TableCell>
+                      <TableCell>{b.equipmentName || "—"}</TableCell>
+                      <TableCell>{b.username || "—"}</TableCell>
                       <TableCell>{format(parseISO(b.startTime), "PPP")}</TableCell>
                       <TableCell>{format(parseISO(b.startTime), "HH:mm")}</TableCell>
                       <TableCell>{format(parseISO(b.endTime), "PPP")}</TableCell>
@@ -375,7 +375,7 @@ export default function ReportsPage() {
                       <TableCell>
                         <Badge variant="outline">{e.status}</Badge>
                       </TableCell>
-                      <TableCell>{e.addedBy}</TableCell>
+                      <TableCell>{e.addedByUsername ?? "—"}</TableCell>
                       <TableCell>{format(parseISO(e.acquisitionDate), "PPP")}</TableCell>
                     </TableRow>
                   ))}
