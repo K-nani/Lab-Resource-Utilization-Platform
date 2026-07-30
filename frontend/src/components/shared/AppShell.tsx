@@ -17,6 +17,7 @@ import {
   Building2,
   User,
   Wrench,
+  FileText,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -78,6 +79,7 @@ function navFor(role: Role): NavItem[] {
         { label: "Calibrations Due", to: "/manager/calibrations", icon: ClipboardCheck, match: ["/manager/calibrations"], badge: 0 },
         { label: "Audit Trail", to: "/manager/audit", icon: History, match: ["/manager/audit"] },
         { label: "Maintenance", to: "/manager/maintenance", icon: Wrench, match: ["/manager/maintenance", "/manager/maintenance/new"] },
+        { label: "Reports", to: "/manager/reports", icon: FileText, match: ["/manager/reports"] },
         profileLink,
       ];
     case "LAB_TECHNICIAN":
@@ -96,6 +98,7 @@ function navFor(role: Role): NavItem[] {
         { label: "Browse", to: "/browse", icon: Search, match: ["/browse"] },
         { label: "Equipment", to: "/equipment", icon: Microscope, match: ["/equipment"] },
         { label: "Utilization Dashboard", to: "/manager/utilization-dashboard", icon: BarChart3, match: ["/manager/utilization-dashboard"] },
+        { label: "Reports", to: "/manager/reports", icon: FileText, match: ["/manager/reports"] },
         profileLink,
       ];
     case "DEPARTMENT_HEAD":

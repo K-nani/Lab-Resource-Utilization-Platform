@@ -21,6 +21,7 @@ export type RouteKey =
   | "managerCalibrations"
   | "managerAudit"
   | "managerMaintenance"
+  | "managerReports"
   | "adminInstitutions"
   | "browse"
   | "technicianCalibration"
@@ -71,6 +72,7 @@ export const ROLE_PERMISSIONS: Record<Role, RolePermission> = {
       "managerCalibrations",
       "managerAudit",
       "managerMaintenance",
+      "managerReports",
       "equipment",
       "equipmentDetail",
     ],

@@ -308,13 +308,29 @@ export default function MaintenanceRequestsListPage() {
                         {format(parseISO(r.createdAt), "MMM d, yyyy")}
                       </TableCell>
                       <TableCell className="text-right">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => navigate(`/equipment/${r.equipmentId}`)}
-                        >
-                          View Equipment
-                        </Button>
+                        <div className="flex justify-end gap-2">
+                          {r.status === "REQUESTED" && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleAction("cancel", r)}
+                              disabled={pendingAction?.id === r.id && pendingAction?.action === "cancel"}
+                            >
+                              {pendingAction?.id === r.id && pendingAction?.action === "cancel" ? (
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                              ) : (
+                                "Cancel"
+                              )}
+                            </Button>
+                          )}
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => navigate(`/equipment/${r.equipmentId}`)}
+                          >
+                            View Equipment
+                          </Button>
+                        </div>
                       </TableCell>
                     </TableRow>
                   );

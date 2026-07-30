@@ -33,6 +33,7 @@ import EquipmentUtilizationDashboard from "@/features/manager/EquipmentUtilizati
 import ManagerWaitlistPage from "@/features/manager/ManagerWaitlistPage";
 import CalibrationsDuePage from "@/features/manager/CalibrationsDuePage";
 import BookingAuditPage from "@/features/manager/BookingAuditPage";
+import ReportsPage from "@/features/manager/ReportsPage";
 import CalibrationDashboard from "@/features/technician/CalibrationDashboard";
 import AdminInstitutionsPage from "@/features/admin/AdminInstitutionsPage";
 import BrowsePlaceholder from "@/features/browse/BrowsePlaceholder";
@@ -256,6 +257,10 @@ export function AppRoot() {
         <Route
           path="/manager/audit"
           element={withRoleShell(["LAB_MANAGER"], <BookingAuditPage />)}
+        />
+        <Route
+          path="/manager/reports"
+          element={withRoleShell(["LAB_MANAGER", "SYSTEM_ADMIN", "INSTITUTION_ADMIN"], <ReportsPage />)}
         />
 
         {/* Maintenance Requests — Lab Manager */}

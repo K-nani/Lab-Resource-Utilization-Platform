@@ -87,7 +87,7 @@ public class BookingController {
     }
 
     @PutMapping("/{id}/cancel")
-    @PreAuthorize("hasRole('RESEARCHER')")
+    @PreAuthorize("hasAnyRole('RESEARCHER','LAB_MANAGER')")
     public ResponseEntity<BookingResponse> cancel(@PathVariable Long id) {
         return ResponseEntity.ok(BookingResponse.from(bookingService.cancel(id)));
     }

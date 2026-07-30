@@ -31,6 +31,7 @@ import { EmptyState } from "@/components/shared/EmptyState";
 import { ListSkeleton } from "@/components/shared/Skeletons";
 import { StatusBadge } from "@/components/shared/StatusBadge";
 import { ActionButtonGroup } from "@/components/shared/ActionButtonGroup";
+import { ConfirmDialog } from "@/components/shared/ConfirmDialog";
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -424,13 +425,21 @@ export default function ManagerBookingsPage() {
 
   const totalCount = data?.length ?? 0;
 
+  const [cancelTarget, setCancelTarget] = React.useState<Booking | null>(null);
+  const [cancelling, setCancelling] = React.useState(false);
+
   // --- lifecycle action (accept/reject/start/cancel/complete/noShow) ---
   const handleAction = async (action: BookingAction, booking: Booking) => {
+    // For cancel action, show confirmation dialog
+    if (action === "cancel") {
+      setCancelTarget(booking);
+      return;
+    }
+
     try {
       if (action === "accept") await bookingApi.accept(booking.id);
       else if (action === "reject") await bookingApi.reject(booking.id);
       else if (action === "start") await bookingApi.start(booking.id);
-      else if (action === "cancel") await bookingApi.cancel(booking.id);
       else if (action === "complete") await bookingApi.complete(booking.id);
       else if (action === "noShow") await bookingApi.noShow(booking.id);
       else return;
@@ -438,6 +447,21 @@ export default function ManagerBookingsPage() {
       refetch();
     } catch (e) {
       toast.error(errMsg(e));
+    }
+  };
+
+  const handleCancelConfirm = async () => {
+    if (!cancelTarget) return;
+    setCancelling(true);
+    try {
+      await bookingApi.cancel(cancelTarget.id);
+      toast.success(ACTION_SUCCESS.cancel);
+      setCancelTarget(null);
+      refetch();
+    } catch (e) {
+      toast.error(errMsg(e));
+    } finally {
+      setCancelling(false);
     }
   };
 
@@ -718,6 +742,32 @@ export default function ManagerBookingsPage() {
       <AuditDialog
         bookingId={auditBookingId}
         onClose={() => setAuditBookingId(null)}
+      />
+
+      <ConfirmDialog
+        open={cancelTarget !== null}
+        onOpenChange={(v) => {
+          if (!cancelling) setCancelTarget(v ? cancelTarget : null);
+        }}
+        title="Cancel booking?"
+        description={
+          cancelTarget ? (
+            <>
+              This will cancel the booking for{" "}
+              <span className="font-semibold text-foreground">
+                {cancelTarget.equipment?.equipmentName || "this equipment"}
+              </span>{" "}
+              on{" "}
+              <span className="font-semibold text-foreground">
+                {fmtDate(cancelTarget.startTime)}
+              </span>
+              .
+            </>
+          ) : undefined
+        }
+        confirmLabel="Cancel Booking"
+        destructive
+        onConfirm={handleCancelConfirm}
       />
     </div>
   );

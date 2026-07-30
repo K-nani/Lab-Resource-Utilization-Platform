@@ -9,7 +9,7 @@ import { API_BASE_URL, TOKEN_KEY } from "@/lib/constants";
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 20000,
+  timeout: 60000,
   headers: { Accept: "application/json, text/plain, */*" },
 });
 
