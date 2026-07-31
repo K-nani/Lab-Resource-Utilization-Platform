@@ -18,6 +18,7 @@ Before running the project, ensure you have the following installed:
 - Neon PostgreSQL database
 - Docker Desktop
 -   Maven 3.9+
+-   brevo
 -   Git
 ---
 
@@ -26,6 +27,68 @@ Before running the project, ensure you have the following installed:
 ``` bash
 git clone https://github.com/shreya080527/Lab-Resource-Utilization-Platform
 cd Lab-Resource-Utilization-Platform
+```
+
+## base url for render
+```
+https://lab-resource-utilization-platform.onrender.com/
+
+```
+
+## base url for vercel
+```
+https://lab-resource-utilization-platform.vercel.app/
+
+```
+
+## Environment Variables for backend
+
+Create a `.env` file in the project root:
+
+``` properties
+
+  SPRING_DATASOURCE_URL: jdbc:postgresql://<neon-host>/neondb?sslmode=require
+
+  SPRING_DATASOURCE_USERNAME: neondb_username
+
+  SPRING_DATASOURCE_PASSWORD: neondb_password
+
+  SPRING_MAIL_USERNAME= brevo_smtp_email
+
+  SPRING_MAIL_PASSWORD= brevo_smtp_api_key
+
+  APP_EMAIL_FROM= brevo_verified_mail
+
+  JWT_SECRET= Jwt_secret key
+
+```
+
+## application.properties
+
+``` properties
+spring.datasource.url=${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/lab_resourse_db}
+spring.datasource.username=${SPRING_DATASOURCE_USERNAME:postgres}
+spring.datasource.password=${SPRING_DATASOURCE_PASSWORD:postgres}
+
+spring.mail.username=${SPRING_MAIL_USERNAME:test@example.com}
+spring.mail.password=${SPRING_MAIL_PASSWORD:test}
+app.email.from=${APP_EMAIL_FROM:test@example.com}
+
+jwt.secret=${JWT_SECRET:aGVsbG8td29ybGQtd2VsY29tZS10by1qd3Qtc2VjcmV0LWtleQ==}
+
+server.port=${PORT:8080}
+
+........
+
+```
+
+## Environment Variables for frontend
+
+Create a `.env` file in the frontend folder :
+
+```
+ VITE_API_BASE_URL= render_url for backend
+
 ```
 
 # Running the Frontend (React)
@@ -122,40 +185,6 @@ and click **Run**.
 
 ---
 
-## Environment Variables
-
-Create a `.env` file in the project root:
-
-``` properties
-
-  SPRING_DATASOURCE_URL=jdbc:postgresql://<neon-host>/neondb?sslmode=require
-  SPRING_DATASOURCE_USERNAME=neondb_owner
-  SPRING_DATASOURCE_PASSWORD=your_password
-
-  SPRING_MAIL_USERNAME=your_email@gmail.com
-  SPRING_MAIL_PASSWORD=your_gmail_app_password
-
-  JWT_SECRET=your_jwt_secret
-
-```
-
-## application.properties
-
-``` properties
-spring.datasource.url=${SPRING_DATASOURCE_URL}
-spring.datasource.username=${SPRING_DATASOURCE_USERNAME}
-spring.datasource.password=${SPRING_DATASOURCE_PASSWORD}
-
-spring.mail.username=${SPRING_MAIL_USERNAME}
-spring.mail.password=${SPRING_MAIL_PASSWORD}
-
-jwt.secret=${JWT_SECRET}
-
-server.port=${PORT:8080}
-
-........
-
-```
 
 ## Build the Project
 
@@ -200,17 +229,7 @@ mvn clean package -DskipTests
 docker compose up --build -d
 ```
 
-## base url for render
-```
-https://lab-resource-utilization-platform.onrender.com/
 
-```
-
-## base url for vercel
-```
-https://lab-resource-utilization-platform.vercel.app/
-
-```
 
 # Authentication API
 
