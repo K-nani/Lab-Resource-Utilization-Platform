@@ -1,5 +1,12 @@
 package com.example.lab_resource_platform.service.user;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.example.lab_resource_platform.dto.auth.RegisterRequest;
 import com.example.lab_resource_platform.entity.Department;
 import com.example.lab_resource_platform.entity.Institution;
@@ -9,13 +16,8 @@ import com.example.lab_resource_platform.repository.DepartmentRepo;
 import com.example.lab_resource_platform.repository.InstitutionRepo;
 import com.example.lab_resource_platform.repository.auth.UserRepo;
 import com.example.lab_resource_platform.service.otp.OtpService;
-import jakarta.transaction.Transactional;
-import jakarta.validation.constraints.NotBlank;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import jakarta.validation.constraints.NotBlank;
 
 @Service
 public class UserService {
