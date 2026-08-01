@@ -153,6 +153,7 @@ public class UserService {
         return otpService.verifyResetOtp(email, otp);
     }
 
+    @Transactional(readOnly = true)
     public User findByUsername(String username) {
         User user = repo.findByUsername(username);
         if (user == null) {
@@ -161,6 +162,7 @@ public class UserService {
         return user;
     }
 
+    @Transactional(readOnly = true)
     public User findByUserId(Long userId) {
         User user = repo.findById(userId).
                 orElseThrow(() -> new RuntimeException("User Not found"));
@@ -168,6 +170,7 @@ public class UserService {
         return user;
     }
 
+    @Transactional(readOnly = true)
     public User findByEmail(@NotBlank(message = "User name required") String email) {
         User user = repo.findByEmail(email)
                 .orElseThrow(()-> new RuntimeException("User Not Found"));
