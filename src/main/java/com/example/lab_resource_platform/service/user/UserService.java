@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.example.lab_resource_platform.dto.auth.RegisterRequest;
 import com.example.lab_resource_platform.entity.Department;
@@ -17,6 +16,7 @@ import com.example.lab_resource_platform.repository.InstitutionRepo;
 import com.example.lab_resource_platform.repository.auth.UserRepo;
 import com.example.lab_resource_platform.service.otp.OtpService;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotBlank;
 
 @Service
@@ -155,7 +155,6 @@ public class UserService {
         return otpService.verifyResetOtp(email, otp);
     }
 
-    @Transactional(readOnly = true)
     public User findByUsername(String username) {
         User user = repo.findByUsername(username);
         if (user == null) {
@@ -164,7 +163,7 @@ public class UserService {
         return user;
     }
 
-    @Transactional(readOnly = true)
+
     public User findByUserId(Long userId) {
         User user = repo.findById(userId).
                 orElseThrow(() -> new RuntimeException("User Not found"));
@@ -172,7 +171,6 @@ public class UserService {
         return user;
     }
 
-    @Transactional(readOnly = true)
     public User findByEmail(@NotBlank(message = "User name required") String email) {
         User user = repo.findByEmail(email)
                 .orElseThrow(()-> new RuntimeException("User Not Found"));
