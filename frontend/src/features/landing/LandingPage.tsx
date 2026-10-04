@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useRouter } from "@/store/router";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
+import { RenderLiveCheckModal } from "@/components/shared/RenderLiveCheckModal";
 import { cn } from "@/lib/utils";
 import { useAsync } from "@/hooks/use-async";
 import { equipmentApi } from "@/lib/api/equipmentApi";
@@ -167,7 +168,10 @@ export default function LandingPage() {
   const goSignIn = () => navigate("/login");
   const goRegister = () => navigate("/register");
 
-  const { data: equipment } = useAsync(
+  // Popup modal to check Render backend live connection
+  const [showCheckModal, setShowCheckModal] = React.useState(true);
+
+  const { data: equipment, refetch: refetchEquipment } = useAsync(
     () => equipmentApi.getAllEquipment().catch(() => []),
     [],
   );
@@ -175,6 +179,14 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
+      {/* Backend Render live check popup */}
+      <RenderLiveCheckModal
+        open={showCheckModal}
+        onClose={() => setShowCheckModal(false)}
+        renderUrl="https://lab-resource-utilization-platform.onrender.com/"
+        onLiveConfirmed={refetchEquipment}
+      />
+
       {/* Animated gradient background orbs */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-gradient-to-br from-violet-400/20 to-purple-600/20 blur-[120px] animate-pulse" />
